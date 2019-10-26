@@ -33,54 +33,107 @@ class shapeL{
 	constructor(ctx){
 		this.shape=[	 
 				[0,0,1,0,2,0,0,1],
-				// [0,0,0,1,0,2,1,0],
-				// [0,0,1,0,1,1,1,2],
-				// [2,0,0,1,1,1,2,1]
-		]
+				[0,0,0,1,0,2,1,0],
+				[0,0,1,0,1,1,1,2],
+				[2,0,0,1,1,1,2,1]
+		];
+		this.currentShape=this.shape[0];
 		this.ctx=ctx;
-		 
+		this.periods=0; 
 	}
 
-	drawShape(){
+	drawShape(index){
 		// gameDot.moveDot()
-		this.ctx.clearRect(0,0,400,400)
-		this.shape.map((item)=>{
-			let judge=2;
 
-			for(let i=0;i<item.length;i=i+2){
-				let x=item[i]*10,y=item[i+1]*10;
-				const gameDot=new dot(x,y,this.ctx);
-				gameDot.renderDot()				 
+		this.ctx.clearRect(0,0,400,400)
+
+		let judge=2 ;
+
+		for(let i=0;i<this.currentShape.length;i=i+2){
+			let x=this.currentShape[i]*10,y=this.currentShape[i+1]*10;
+			const gameDot=new dot(x,y,this.ctx);
+			gameDot.renderDot()				 
+		}
+		this.shapeDown(index);
+		
+	}
+
+	shapeDown(index){
+		
+		this.changeShape(index);
+
+		if(this.reachBottom()){
+
+		 	
+		 		 
+		}else{
+			console.log(this.currentShape)
+
+			this.currentShape=this.currentShape.map((item,index)=>{
+
+	 			if((index+1)%2==0){
+					item=item+1;
+	 			}
+	 			this.periods++; 
+				return item;	
+			})
+		}
+		
+ 		 
+	}
+	reachBottom(){
+		return this.currentShape.some((item)=>{
+			if(item==10||item+1==10||item-1==10){
+				return true
+			}else{	
+				return false;
 			}
 			 
-			
 		})
-
 	}
-
-	shapeMove(){
-		 
-		// 
-	 	this.shape=this.shape.map((item)=>{
-
-	 		return item.map((sItem,sIndex)=>{
-	 			 
-	 			if(sItem==20){
-
-	 			}else{
-	 				if((sIndex+1)%2==0){
- 						sItem=sItem+2;
-		 			}
-					return sItem;
-	 			} 
-	 			
-
-	 			
-	 			
+	changeShape(index){
+		const that=this,indexs=[0,1,2,3];let i=0;
+		document.onkeydown=function(event){ 
+			index<3?index++:index=0;	 
+		 	that.currentShape=that.shape[index];
+		 	const next=that.periods/8;
+			console.log(that.currentShape,that.periods)
+			that.currentShape=that.currentShape.map((item,index)=>{
+				if((index+1)%2==0){
+					item=item+1;
+	 			}
+	 			return item;
 			})
+			that.periods--;
 			 
-	 	})
- 		 
+		 	that.drawShape(index);
+		}
+		// switch(keyCode){
+  //               case 1:
+  //               case 38:
+  //               case 269: //up
+  //                   return 'up';
+  //                   break;
+  //               case 2:
+  //               case 40:
+  //               case 270:
+  //                   return 'down';
+  //                   break;
+  //               case 3:
+  //               case 37:
+  //               case 271:
+  //                   return 'left';
+  //                   break;
+  //               case 4:
+  //               case 39:
+  //               case 272:
+  //                   return 'right';
+  //                   break;
+  //               case 339: //exit
+  //               case 240: //back
+  //                   return 'back';
+  //                   break;
+  //       }
 	}
 }
 
@@ -106,11 +159,14 @@ class table{
 		const ctx=this.ctx;
 		 
 		const shapel=new shapeL(ctx);
-		 
+		
+
+		let index=0;
+
 		setInterval(function(){
 			
-			shapel.drawShape();
-			shapel.shapeMove();
+			shapel.drawShape(index);
+			
 		},1000)
 		// window.requestAnimationFrame();
 
