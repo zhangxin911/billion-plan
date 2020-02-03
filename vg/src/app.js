@@ -6,6 +6,7 @@ import '@/app.less';
 
 import Order from '@/order/order.jsx'; 
 import List  from '@/list/list.jsx';
+import Detail from '@/detail/detail.jsx';
 
 let listData=require('mockData/listData.js');
  
@@ -17,8 +18,11 @@ class App extends Component{
     render() {
         return (
             <div className="main">
-            	<List />
-
+            	<Router >
+            		<Route path="/" exact component={List}></Route>
+            		<Route path="/detail/:foodId" component={Detail}></Route>
+            	</Router> 
+            	          	 
             </div>
         );
     }
