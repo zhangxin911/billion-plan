@@ -13,17 +13,36 @@ class ListContent extends Component{
 	}
 	constructor(props){
 	  	super();
-	  	 
+	  	this.addCart=this.addCart.bind(this);
+	  	this.reduceCart=this.reduceCart.bind(this); 
 	}
-
+	addCart(index){
+		let contentData=this.state.contentData,{content}=contentData,{food}=content[this.props.current-1];
+		food[index].own++;
+		this.setState({
+			contentData
+		})
+	}
+	reduceCart(index){
+		let contentData=this.state.contentData,{content}=contentData,{food}=content[this.props.current-1];
+		food[index].own<=0?food[index].own=0:food[index].own--;
+		this.setState({
+			contentData
+		})
+	}
 	render(){
 		let {content}=contentData,contentDom=[];
 	 
 		if(!!content[this.props.current-1]){
 			let {food}=content[this.props.current-1];
 			food.map((item,index)=>{
+				let countDom=<div className="item-count"><div className="addToCart" onClick={()=>{this.addCart(index)}}>+</div></div>;
+				if(item.own>0){
+					countDom=<div className="item-count"><div className="reduceToCart" onClick={()=>{this.reduceCart(index)}}>-</div><span>{item.own}</span><div className="addToCart" onClick={()=>{this.addCart(index)}}>+</div></div>;
+				} 
+				 
 				contentDom.push(
-					<Link to={`/detail/${0}`}  key={index}>
+					// <Link to={`/detail/${0}`}  key={index}>
 						<div className="content-item" key={index}>
 							<img className="item-img"></img>
 							<div className="item-info">
@@ -32,11 +51,11 @@ class ListContent extends Component{
 								<div className="item-discount">{item.discount}折</div>
 								<div className="item-bottom">
 									<div>¥{item.nowPrice} <span>¥{item.price}</span></div>
-									<div className="addToCart">+</div>
+									{countDom}
 								</div>
 							</div>
 						</div>
-					</Link>
+					// </Link>
 					
 				)
 			})

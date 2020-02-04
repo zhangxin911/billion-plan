@@ -4,7 +4,10 @@ import '@/list/list.less';
 
 import ListMenu from '@/list/components/menu.jsx';
 import ListContent from '@/list/components/content.jsx';
- 
+
+import Cart from '@/cart/cart.jsx';
+
+
 class List extends Component{
 	componentWillMount(){
 		this.setState({
@@ -27,7 +30,7 @@ class List extends Component{
 					<ListMenu current={this.state.current} changeTab={this.changeTab}></ListMenu>
 					<ListContent  current={this.state.current}></ListContent>
 				</div>
-				
+				<Cart></Cart>
 			</React.Fragment>
 		)
 	}

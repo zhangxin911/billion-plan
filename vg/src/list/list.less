@@ -22,20 +22,19 @@
 			display:flex;
 			flex-direction: row;
 			.item-img{
-				 
 				height:100px;
 				background:blue;
 				flex:0 0 100px;
 			}
 			.item-info{
-				flex:2;
+				width:12rem;
 			}
 			.item-name{
 				font-size:1.6rem;
 			}
 			.item-detail{
 
-				max-width:13rem;
+				max-width:12rem;
 				height:1.2rem;
 				overflow:hidden;
 				white-space: nowrap;
@@ -44,11 +43,32 @@
 			.item-bottom{
 				display:flex;
 				flex-direction: row;
+				justify-content: space-around;
 				.addToCart{
 					width:1.2rem;
 					height:1.2rem;
+					line-height: 1.2rem;
 					background:orange;
 					border-radius: 50%;
+					color:#fff;
+					text-align: center;
+				}
+				.reduceToCart{
+					width:1.2rem;
+					height:1.2rem;
+					line-height: 1.2rem;
+					border:1px solid orange;
+					border-radius: 50%;
+					color:orange;
+					text-align: center;
+				}
+				.item-count{
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					span{
+						width:1.2rem;
+					}
 				}
 			}
 		}
