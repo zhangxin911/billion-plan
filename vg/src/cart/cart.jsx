@@ -14,11 +14,19 @@ const store=createStore(reducer);
 console.log(store.getState())
 
 class Cart extends Component{
+	componentWillMount(){
+		let { contentData } =store.getState(),{content}=contentData;
+		this.setState({
+			contentData
+		});
+	}
 	constructor(){
 		super();
 
 	}
 	render(){
+		let {content}=this.state.contentData,contentListDom=[];
+		console.log(content)
 		return (
 			<div className="cart">
 				<div className="cart-title">

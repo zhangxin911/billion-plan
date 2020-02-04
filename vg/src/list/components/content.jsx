@@ -1,9 +1,18 @@
 import React,{ Component } from 'react';
 import ReactDOM from 'react-dom';
 import {Link } from 'react-router-dom';
+import {createStore} from 'redux';
 
 let listData=require('mockData/listData.js');
 let {contentData}=listData;
+
+
+const reducer=function(state=listData,action){
+	return state;
+}
+
+const store=createStore(reducer);
+
 
 class ListContent extends Component{
 	componentWillMount(){
