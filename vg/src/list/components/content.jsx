@@ -8,7 +8,9 @@ let {contentData}=listData;
 
 
 const reducer=function(state=listData,action){
-	return state;
+	return {
+		...state
+	};
 }
 
 const store=createStore(reducer);
